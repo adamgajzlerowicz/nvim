@@ -19,10 +19,13 @@ Plug 'leafgarland/typescript-vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'iloginow/vim-stylus'
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 so ~/.config/nvim/coc.vim
 
+set noswapfile
 set ignorecase
 syntax on
 set nocompatible
@@ -34,10 +37,13 @@ set hlsearch
 set number
 set cursorline
 set noswapfile
+set wrap!
 
 " autoread with trigger
 au FocusGained,BufEnter * :checktime
 set autoread
+
+
 
 " tabs
 set smartindent
@@ -57,8 +63,6 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 
 imap jj <Esc>
-map bn :bn <CR>
-map bp :bp <CR>
 map <silent> <space>l  :CocCommand eslint.executeAutofix <CR>
 map <C-l>  :CocCommand eslint.executeAutofix <CR>
 
@@ -73,7 +77,11 @@ nmap <Tab><Tab> :Buffers<CR>
 nnoremap <Leader><Tab> :Buffers<CR>
 nnoremap <Leader>h :History<CR>
 
-:set noswapfile
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 
 nnoremap <silent> <Esc><Esc> <Esc>:nohlsearch<CR><Esc>
 
@@ -82,11 +90,13 @@ au FocusLost * silent! wa
 
 " NERDTREE:
 nnoremap <F3> :NERDTreeToggle <CR>
+let NERDTreeShowLineNumbers=1
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=40
 
 function! NTopen()
@@ -117,7 +127,7 @@ let g:startify_bookmarks = [
   \ { 'vim-config': '~/.config/nvim/init.vim'},
   \ { 'admin-panel': '~/projects/admin-black'},
   \ { 'front-black': '~/projects/front-black'},
-  \ { 'mr-robott': '~/projects/mr-robot'},
+  \ { 'mr-robot': '~/projects/mr-robot'},
   \ { 'pah-front': '~/projects/pah-fm/frontend' },
   \ { 'pah': '~/projects/pah-fm' } ,
   \ ]
@@ -134,16 +144,16 @@ let g:startify_lists = [
 " gitgutter
 set updatetime=100
 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ }
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'cocstatus': 'coc#status'
+"       \ },
+"       \ }
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -165,3 +175,22 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
   endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
+" lightline
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'currentfunction': 'CocCurrentFunction'
+      \ },
+      \ }
+
+

@@ -1,13 +1,11 @@
 {
-  "eslint.options": {"configFile": "/Users/adam/projects/mr-robot/.eslintrc.json"},
+  "eslint.optionsxxjj:w": {"configFile": "/Users/adam/projects/mr-robot/.eslintrc.json"},
   "diagnostic.checkCurrentLine": true,
 
   "coc.preferences.rootPatterns": [
     "package.json",
     ".vim",
-    ".git",
-    ".hg",
-    ".projections.json"
+    ".git"
   ],
 
   "suggest.echodocSupport": true,
