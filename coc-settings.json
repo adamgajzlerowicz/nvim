@@ -1,7 +1,6 @@
 {
-  "eslint.optionsxxjj:w": {"configFile": "/Users/adam/projects/mr-robot/.eslintrc.json"},
   "diagnostic.checkCurrentLine": true,
-
+  "javascript.validate.enable": false,
   "coc.preferences.rootPatterns": [
     "package.json",
     ".vim",

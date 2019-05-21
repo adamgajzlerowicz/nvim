@@ -20,6 +20,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'iloginow/vim-stylus'
 Plug 'itchyny/lightline.vim'
+Plug 'tomasiser/vim-code-dark'
 
 call plug#end()
 
@@ -66,9 +67,11 @@ imap jj <Esc>
 map <silent> <space>l  :CocCommand eslint.executeAutofix <CR>
 map <C-l>  :CocCommand eslint.executeAutofix <CR>
 
-let mapleader = ","
+" let mapleader = ","
+let mapleader=" "
 
 map <leader>s :Startify <CR>
+map <leader>f :Rg <CR>
 
 " fuzzy:
 nnoremap <C-p> :Files<CR>
@@ -118,7 +121,8 @@ let g:NERDTTreeWinSize=65
 
 " colors
 " colorscheme hybrid_reverse
-colorscheme darcula
+" colorscheme darcula
+colorscheme codedark
 " let g:airline_theme = "hybrid"
 " let g:airline#extensions#tabline#enabled = 1
 
@@ -130,6 +134,7 @@ let g:startify_bookmarks = [
   \ { 'mr-robot': '~/projects/mr-robot'},
   \ { 'pah-front': '~/projects/pah-fm/frontend' },
   \ { 'pah': '~/projects/pah-fm' } ,
+  \ { 'nest-testing': '~/projects/nest-testing' } ,
   \ ]
 
 let g:startify_enable_special = 0
@@ -143,17 +148,6 @@ let g:startify_lists = [
 
 " gitgutter
 set updatetime=100
-
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'cocstatus': 'coc#status'
-"       \ },
-"       \ }
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -184,12 +178,14 @@ endfunction
 let g:lightline = {
       \ 'colorscheme': 'seoul256',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'currentfunction', 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ ['blame', 'filename'], [ 'cocstatus', 'currentfunction' ] ],
+      \   'right': [ [ 'percent' ], ['gitbranch'] ],
       \ },
       \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
       \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction'
+      \   'currentfunction': 'CocCurrentFunction',
+      \   'blame': 'fugitiveblame'
       \ },
       \ }
 
